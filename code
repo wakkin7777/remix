@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farvault Enhanced Edition v3.4</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@farcade/game-sdk@0.2.1/dist/index.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000011;
+        overflow: hidden;
+        font-family: "Orbitron", "Courier New", monospace;
+        touch-action: none;
+      }
+      canvas {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+      #game-container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .title-screen .game-ui {
+        display: none !important;
+      }
+      .game-ui {
+        display: block;
+      }
+      #touch-controls {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .control-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 4px 0;
+      }
+      .btn {
+        font-size: 31px;
+        padding: 13px;
+        border-radius: 12px;
+        border: 2px solid #c8a35a;
+        background: linear-gradient(145deg, #2a3349, #11151f);
+        color: #f0e7d0;
+        box-shadow:
+          0 4px 8px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(200, 163, 90, 0.3);
+        user-select: none;
+        touch-action: manipulation;
+        min-width: 57px;
+        min-height: 57px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .btn:active {
+        background: linear-gradient(145deg, #11151f, #2a3349);
+        transform: translateY(2px);
+        box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.8),
+          inset 0 1px 0 rgba(200, 163, 90, 0.2);
+      }
+      .btn:hover {
+        border-color: #d4b76a;
+        box-shadow:
+          0 6px 12px rgba(0, 0, 0, 0.7),
+          inset 0 1px 0 rgba(212, 183, 106, 0.4);
+      }
+
+      /* Status button positioned on the left */
+      .control-row.status-row {
+        position: relative;
+      }
+      .control-row.status-row #btn-status {
+        position: absolute;
+        left: -100px;
+        top: 0;
+        background: linear-gradient(145deg, #8e24aa, #5e1a73);
+        border-color: #ba68c8;
+        transform: scale(0.8);
+      }
+      .control-row.status-row #btn-status:hover {
+        border-color: #ce93d8;
+      }
+      .control-row.status-row #btn-status:active {
+        background: linear-gradient(145deg, #5e1a73, #8e24aa);
+      }
+
+      /* Thunder button positioned on the right, symmetrical to status */
+      .control-row.thunder-row {
+        position: relative;
+      }
+      
+#btn-thunder {
+  background: linear-gradient(145deg, #ff9800, #e65100);
+  border-color: #ffc107;
+  transform: scale(0.8);
+  display: none;
+  margin-top: 8px;
+  position: fixed;
+  bottom: 140px;
+  right: 20px;
+  z-index: 200;
+}
+
+#btn-thunder:hover {
+  border-color: #ffeb3b;
+}
+
+#btn-thunder:active {
+  background: linear-gradient(145deg, #e65100, #ff9800);
+}
+
+
+
+
+    
